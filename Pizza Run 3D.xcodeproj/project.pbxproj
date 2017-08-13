@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4DF08561F3E2F96003C4EC5 /* PizzaRun3D.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = D4DF08551F3E2F96003C4EC5 /* PizzaRun3D.scnassets */; };
 		D4E4A50C1F3E1F5D008D6B13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E4A50B1F3E1F5D008D6B13 /* AppDelegate.swift */; };
 		D4E4A50E1F3E1F5D008D6B13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E4A50D1F3E1F5D008D6B13 /* ViewController.swift */; };
 		D4E4A5111F3E1F5D008D6B13 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4E4A50F1F3E1F5D008D6B13 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D4DF08551F3E2F96003C4EC5 /* PizzaRun3D.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = PizzaRun3D.scnassets; sourceTree = "<group>"; };
 		D4E4A5081F3E1F5D008D6B13 /* Pizza Run 3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pizza Run 3D.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E4A50B1F3E1F5D008D6B13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4E4A50D1F3E1F5D008D6B13 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 		D4E4A50A1F3E1F5D008D6B13 /* Pizza Run 3D */ = {
 			isa = PBXGroup;
 			children = (
+				D4DF08551F3E2F96003C4EC5 /* PizzaRun3D.scnassets */,
 				D4E4A50B1F3E1F5D008D6B13 /* AppDelegate.swift */,
 				D4E4A50D1F3E1F5D008D6B13 /* ViewController.swift */,
 				D4E4A50F1F3E1F5D008D6B13 /* Main.storyboard */,
@@ -96,6 +99,7 @@
 				TargetAttributes = {
 					D4E4A5071F3E1F5D008D6B13 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 93JF9LS6ZY;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -126,6 +130,7 @@
 				D4E4A5161F3E1F5D008D6B13 /* LaunchScreen.storyboard in Resources */,
 				D4E4A5131F3E1F5D008D6B13 /* Assets.xcassets in Resources */,
 				D4E4A5111F3E1F5D008D6B13 /* Main.storyboard in Resources */,
+				D4DF08561F3E2F96003C4EC5 /* PizzaRun3D.scnassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,9 +265,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 93JF9LS6ZY;
 				INFOPLIST_FILE = "Pizza Run 3D/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "it.kingborn187.iOSApplication.Pizza-Run-3D";
+				PRODUCT_BUNDLE_IDENTIFIER = it.kingborn187.iOSApplication;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -272,9 +278,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 93JF9LS6ZY;
 				INFOPLIST_FILE = "Pizza Run 3D/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "it.kingborn187.iOSApplication.Pizza-Run-3D";
+				PRODUCT_BUNDLE_IDENTIFIER = it.kingborn187.iOSApplication;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -299,6 +306,7 @@
 				D4E4A51C1F3E1F5D008D6B13 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

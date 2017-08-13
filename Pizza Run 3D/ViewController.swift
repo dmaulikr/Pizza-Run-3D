@@ -1,25 +1,26 @@
-//
-//  ViewController.swift
-//  Pizza Run 3D
-//
-//  Created by Renato Tramontano on 11/08/2017.
-//  Copyright © 2017 Renato Tramontano. All rights reserved.
-//
 
 import UIKit
+import SceneKit
+import SpriteKit
 
 class ViewController: UIViewController {
+    
+    var scnView: SCNView!
+    var gameScene: SCNScene!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        setupScene()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func setupScene() {
+        scnView = SCNView(frame: self.view.frame)
+        self.view.addSubview(scnView)
+        gameScene = SCNScene(named: "PizzaRun3D.scnassets/Scenes/gameScene.scn")
+        scnView.scene = gameScene
     }
-
+    
 
 }
 
