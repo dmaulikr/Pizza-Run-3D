@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     var cityNode: SCNNode!
     var grass1Node: SCNNode!
     var grass2Node: SCNNode!
+    var autoScene: SCNScene!
+    var auto1Node: SCNNode!
     
     var movePlayerUpAction: SCNAction!
     var movePlayerDownAction: SCNAction!
@@ -41,6 +43,8 @@ class ViewController: UIViewController {
         cityNode = gameScene.rootNode.childNode(withName: "citta", recursively: true)!
         grass1Node = gameScene.rootNode.childNode(withName: "erba_1", recursively: true)!
         grass2Node = gameScene.rootNode.childNode(withName: "erba_2", recursively: true)!
+        autoScene = SCNScene(named: "PizzaRun3D.scnassets/Scenes/auto_1.scn")
+        auto1Node = autoScene.rootNode.childNode(withName: "Auto1", recursively: false)
     }
     
     func setupActions() {
@@ -50,7 +54,7 @@ class ViewController: UIViewController {
         cityNode.runAction(moveCityAction)
         
         // Move Street1 and Street2
-        let moveStreetAction = SCNAction.moveBy(x: -550, y: 0, z: 0, duration: 60)
+        let moveStreetAction = SCNAction.moveBy(x: -950, y: 0, z: 0, duration: 120)
         streetNode.runAction(moveStreetAction)
         
         // Move Player
@@ -72,6 +76,10 @@ class ViewController: UIViewController {
       
         grass1Node.runAction(SCNAction.sequence([grass1Action, SCNAction.repeatForever(grass2Action)]))
         grass2Node.runAction(SCNAction.repeatForever(grass2Action))
+        
+        // Create Cars
+        let createCarsAction = SCNAction.run(createCars(node:))
+        gameScene.rootNode.runAction(SCNAction.repeatForever(SCNAction.sequence([createCarsAction, SCNAction.wait(duration: 4)])))
     }
     
     func setupGesture() {
@@ -99,5 +107,18 @@ class ViewController: UIViewController {
             break
         }
 
+    }
+    
+    func createCars(node: SCNNode) {
+        let carNode = auto1Node.clone()
+        gameScene.rootNode.addChildNode(carNode)
+        
+        let positionArray: [Float] = [1.6, 2.4, 3.4]
+        let indexArray = Int(arc4random() % 3)
+        carNode.position = SCNVector3(x: 20, y: 0.035, z: positionArray[indexArray])
+        
+        let moveCarAction = SCNAction.moveBy(x: -40, y: 0, z: 0, duration: 4)
+        let removeCarAction = SCNAction.removeFromParentNode()
+        carNode.runAction(SCNAction.sequence([moveCarAction, removeCarAction]))
     }
 }
