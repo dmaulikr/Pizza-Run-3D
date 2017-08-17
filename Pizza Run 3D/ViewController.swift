@@ -117,7 +117,7 @@ class ViewController: UIViewController {
         let indexArray = Int(arc4random() % 3)
         carNode.position = SCNVector3(x: 20, y: 0.035, z: positionArray[indexArray])
         
-        let moveCarAction = SCNAction.moveBy(x: -40, y: 0, z: 0, duration: 4)
+        let moveCarAction = SCNAction.moveBy(x: -40, y: 0, z: 0, duration: 3.5)
         let removeCarAction = SCNAction.removeFromParentNode()
         carNode.runAction(SCNAction.sequence([moveCarAction, removeCarAction]))
     }
