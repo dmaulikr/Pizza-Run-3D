@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         gameScene = SCNScene(named: "PizzaRun3D.scnassets/Scenes/gameScene.scn")
         scnView.scene = gameScene
         scnView.showsStatistics = true
-//        scnView.allowsCameraControl = true
+        scnView.allowsCameraControl = true
     }
     
     func setupNodes() {
@@ -63,8 +63,8 @@ class ViewController: UIViewController {
         let street1Action = SCNAction.sequence([moveStreet1Action, reposeStreetAction])
         let street2Action = SCNAction.sequence([moveStreet2Action, reposeStreetAction])
         
-        street1Node.runAction(SCNAction.sequence([street1Action, SCNAction.repeat(street2Action, count: 9)]))
-        street2Node.runAction(SCNAction.repeat(street2Action, count: 10))
+        street1Node.runAction(SCNAction.sequence([street1Action, SCNAction.repeat(street2Action, count: 1)]))
+        street2Node.runAction(SCNAction.repeat(street2Action, count: 2))
         
         // Move Player
         let inclineScouterLeftAction = SCNAction.rotateBy(x: -0.5, y: 0, z: 0, duration:0)
@@ -87,13 +87,16 @@ class ViewController: UIViewController {
         grass2Node.runAction(SCNAction.repeatForever(grass2Action))
         
         // Move Gallery1 and Gallery2
-//        let moveGallery1Action = SCNAction.moveBy(x: -100, y: 0, z: 0, duration: 8)
-//        let moveGallery2Action = SCNAction.moveBy(x: -125, y: 0, z: 0, duration: 10)
-//        let reposeGalleryAction = SCNAction.move(to: SCNVector3(x: 13.9, y: 0.147, z: 2.315), duration: 0)
-//
-//        let gallery1Action = SCNAction.sequence([moveGallery1Action, reposeGalleryAction])
-//        let gallery2Action = SCNAction.sequence([moveGallery2Action, reposeGalleryAction])
-//
+        let moveGallery1Action = SCNAction.moveBy(x: -44, y: 0, z: 0, duration: 5.5)
+        let moveGallery2Action = SCNAction.moveBy(x: -52, y: 0, z: 0, duration: 6.5)
+        let moveGallery3Action = SCNAction.moveBy(x: -19, y: 0, z: 0, duration: 2.5)
+        let reposeGalleryAction = SCNAction.move(to: SCNVector3(x: 8, y: -0.229, z: 3.18), duration: 0)
+
+        let gallery1Action = SCNAction.sequence([moveGallery1Action, reposeGalleryAction])
+        let gallery2Action = SCNAction.sequence([moveGallery2Action, reposeGalleryAction])
+
+        gallery1Node.runAction(SCNAction.sequence([SCNAction.wait(duration: 4), gallery1Action, moveGallery3Action]))
+        gallery2Node.runAction(SCNAction.sequence([SCNAction.wait(duration: 4), moveGallery2Action]))
 //        gallery1Node.runAction(SCNAction.sequence([gallery1Action, SCNAction.repeat(gallery2Action, count: 4)]))
 //        gallery2Node.runAction(SCNAction.repeat(gallery2Action, count: 5))
 
