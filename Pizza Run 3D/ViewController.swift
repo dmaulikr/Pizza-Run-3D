@@ -68,7 +68,7 @@ class ViewController: UIViewController {
         
         // Move Grass1 and Grass2
         let moveGrass1Action = SCNAction.moveBy(x: -10, y: 0, z: 0, duration: 1)
-        let moveGrass2Action = SCNAction.moveBy(x: -19.9, y: 0, z: 0, duration: 2)
+        let moveGrass2Action = SCNAction.moveBy(x: -19.7, y: 0, z: 0, duration: 2)
         let reposeGrassAction = SCNAction.move(to: SCNVector3(x: 7, y: 0.159, z: 3.8), duration: 0)
         
         let grass1Action = SCNAction.sequence([moveGrass1Action, reposeGrassAction])
