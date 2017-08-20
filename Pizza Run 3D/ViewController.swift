@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     var grass2Node: SCNNode!
     var autoScene: SCNScene!
     var auto1Node: SCNNode!
+    var pizzaScena: SCNScene!
+    var pizzaNode: SCNNode!
     
     var movePlayerUpAction: SCNAction!
     var movePlayerDownAction: SCNAction!
@@ -33,7 +35,7 @@ class ViewController: UIViewController {
         self.view.addSubview(scnView)
         gameScene = SCNScene(named: "PizzaRun3D.scnassets/Scenes/gameScene.scn")
         scnView.scene = gameScene
-//        scnView.showsStatistics = true
+        scnView.showsStatistics = true
 //        scnView.allowsCameraControl = true
     }
     
@@ -45,6 +47,8 @@ class ViewController: UIViewController {
         grass2Node = gameScene.rootNode.childNode(withName: "erba_2", recursively: true)!
         autoScene = SCNScene(named: "PizzaRun3D.scnassets/Scenes/auto_1.scn")
         auto1Node = autoScene.rootNode.childNode(withName: "Auto1", recursively: false)
+        pizzaScena = SCNScene(named: "PizzaRun3D.scnassets/Scenes/pizza.scn")
+        pizzaNode = pizzaScena.rootNode.childNode(withName: "Pizza", recursively: false)
     }
     
     func setupActions() {
@@ -80,6 +84,10 @@ class ViewController: UIViewController {
         // Create Cars
         let createCarsAction = SCNAction.run(createCars(node:))
         gameScene.rootNode.runAction(SCNAction.repeatForever(SCNAction.sequence([createCarsAction, SCNAction.wait(duration: 4)])))
+        
+        // Create Pizza
+        let createPizzaAction = SCNAction.run(createPizza(node:))
+        gameScene.rootNode.runAction(SCNAction.repeatForever(SCNAction.sequence([createPizzaAction, SCNAction.wait(duration: 3)])))
     }
     
     func setupGesture() {
@@ -117,8 +125,21 @@ class ViewController: UIViewController {
         let indexArray = Int(arc4random() % 3)
         carNode.position = SCNVector3(x: 20, y: 0.035, z: positionArray[indexArray])
         
-        let moveCarAction = SCNAction.moveBy(x: -40, y: 0, z: 0, duration: 3.5)
+        let moveCarAction = SCNAction.moveBy(x: -40, y: 0, z: 0, duration: 6)
         let removeCarAction = SCNAction.removeFromParentNode()
         carNode.runAction(SCNAction.sequence([moveCarAction, removeCarAction]))
+    }
+    
+    func createPizza(node: SCNNode) {
+       let pizza = pizzaNode.clone()
+        gameScene.rootNode.addChildNode(pizza)
+        
+        let positionArray: [Float] = [3.4, 1.5, 1.8]
+        let indexArray = Int(arc4random() % 3)
+        pizza.position = SCNVector3(x: 20, y: 0.28, z: positionArray[indexArray])
+        
+        let movePizzaAction = SCNAction.moveBy(x: -40, y: 0, z: 0, duration: 6)
+        let removePizzaAction = SCNAction.removeFromParentNode()
+        pizza.runAction(SCNAction.sequence([movePizzaAction, removePizzaAction]))
     }
 }
