@@ -3,6 +3,7 @@
 import UIKit
 import SceneKit
 import SpriteKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
@@ -11,12 +12,11 @@ class ViewController: UIViewController {
     var streetNode: SCNNode!
     var playerNode: SCNNode!
     var cityNode: SCNNode!
-    var grass1Node: SCNNode!
-    var grass2Node: SCNNode!
     var autoScene: SCNScene!
     var auto1Node: SCNNode!
     var pizzaScena: SCNScene!
     var pizzaNode: SCNNode!
+    var audioGame: AVAudioPlayer!
     
     var movePlayerUpAction: SCNAction!
     var movePlayerDownAction: SCNAction!
@@ -28,6 +28,7 @@ class ViewController: UIViewController {
         setupNodes()
         setupActions()
         setupGesture()
+        setupAudio()
     }
     
     func setupScene() {
@@ -36,19 +37,18 @@ class ViewController: UIViewController {
         gameScene = SCNScene(named: "PizzaRun3D.scnassets/Scenes/gameScene.scn")
         scnView.scene = gameScene
         scnView.showsStatistics = true
-//        scnView.allowsCameraControl = true
+        //        scnView.allowsCameraControl = true
     }
     
     func setupNodes() {
         streetNode = gameScene.rootNode.childNode(withName: "strada", recursively: true)!
         playerNode = gameScene.rootNode.childNode(withName: "personaggio", recursively: true)!
         cityNode = gameScene.rootNode.childNode(withName: "citta", recursively: true)!
-        grass1Node = gameScene.rootNode.childNode(withName: "erba_1", recursively: true)!
-        grass2Node = gameScene.rootNode.childNode(withName: "erba_2", recursively: true)!
         autoScene = SCNScene(named: "PizzaRun3D.scnassets/Scenes/auto_1.scn")
         auto1Node = autoScene.rootNode.childNode(withName: "Auto1", recursively: false)
         pizzaScena = SCNScene(named: "PizzaRun3D.scnassets/Scenes/pizza.scn")
         pizzaNode = pizzaScena.rootNode.childNode(withName: "Pizza", recursively: false)
+        createCars(node: pizzaNode)
     }
     
     func setupActions() {
@@ -57,7 +57,7 @@ class ViewController: UIViewController {
         let moveCityAction = SCNAction.moveBy(x: -20, y: 0, z: 0, duration: 360)
         cityNode.runAction(moveCityAction)
         
-        // Move Street1 and Street2
+        // Move Street
         let moveStreetAction = SCNAction.moveBy(x: -950, y: 0, z: 0, duration: 120)
         streetNode.runAction(moveStreetAction)
         
@@ -70,20 +70,9 @@ class ViewController: UIViewController {
         movePlayerUpAction = SCNAction.sequence([inclineScouterLeftAction, moveScouterUpAction, inclineScouterRightAction])
         movePlayerDownAction = SCNAction.sequence([inclineScouterRightAction, moveScouterDownAction, inclineScouterLeftAction])
         
-        // Move Grass1 and Grass2
-        let moveGrass1Action = SCNAction.moveBy(x: -10, y: 0, z: 0, duration: 1)
-        let moveGrass2Action = SCNAction.moveBy(x: -19.7, y: 0, z: 0, duration: 2)
-        let reposeGrassAction = SCNAction.move(to: SCNVector3(x: 7, y: 0.159, z: 3.8), duration: 0)
-        
-        let grass1Action = SCNAction.sequence([moveGrass1Action, reposeGrassAction])
-        let grass2Action = SCNAction.sequence([moveGrass2Action, reposeGrassAction])
-      
-        grass1Node.runAction(SCNAction.sequence([grass1Action, SCNAction.repeatForever(grass2Action)]))
-        grass2Node.runAction(SCNAction.repeatForever(grass2Action))
-        
         // Create Cars
-        let createCarsAction = SCNAction.run(createCars(node:))
-        gameScene.rootNode.runAction(SCNAction.repeatForever(SCNAction.sequence([createCarsAction, SCNAction.wait(duration: 4)])))
+//        let createCarsAction = SCNAction.run(createCars(node:))
+//        gameScene.rootNode.runAction(SCNAction.repeatForever(SCNAction.sequence([createCarsAction, SCNAction.wait(duration: 2)])))
         
         // Create Pizza
         let createPizzaAction = SCNAction.run(createPizza(node:))
@@ -100,6 +89,20 @@ class ViewController: UIViewController {
         scnView.addGestureRecognizer(swipeDown)
     }
     
+    func setupAudio() {
+        let soundURL = Bundle.main.url(forResource: "PizzaRun3D.scnassets/Sounds/musicGame", withExtension: "mp3")
+        
+        do {
+            audioGame = try AVAudioPlayer(contentsOf: soundURL!)
+        }
+        catch  {
+            print(error)
+        }
+        
+        audioGame.play()
+        
+    }
+    
     func handleGesture(_ sender: UISwipeGestureRecognizer) {
         
         switch sender.direction {
@@ -114,7 +117,7 @@ class ViewController: UIViewController {
         default:
             break
         }
-
+        
     }
     
     func createCars(node: SCNNode) {
@@ -125,13 +128,13 @@ class ViewController: UIViewController {
         let indexArray = Int(arc4random() % 3)
         carNode.position = SCNVector3(x: 20, y: 0.035, z: positionArray[indexArray])
         
-        let moveCarAction = SCNAction.moveBy(x: -40, y: 0, z: 0, duration: 6)
+        let moveCarAction = SCNAction.moveBy(x: -40, y: 0, z: 0, duration: 7)
         let removeCarAction = SCNAction.removeFromParentNode()
         carNode.runAction(SCNAction.sequence([moveCarAction, removeCarAction]))
     }
     
     func createPizza(node: SCNNode) {
-       let pizza = pizzaNode.clone()
+        let pizza = pizzaNode.clone()
         gameScene.rootNode.addChildNode(pizza)
         
         let positionArray: [Float] = [3.4, 1.5, 1.8]
